@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DayMark: mark your day</title>
+  <meta name="description" content="DayMark is a simple daily habit tracker and mood journal that runs in your browser.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✅</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">✓</span> DayMark</div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-view="today" role="tab">Today</button>
+      <button class="tab" data-view="journal" role="tab">Journal</button>
+      <button class="tab" data-view="stats" role="tab">Stats</button>
+    </nav>
+    <button id="themeToggle" class="icon-btn" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
+  </header>
+
+  <main>
+    <!-- TODAY -->
+    <section id="view-today" class="view active">
+      <div class="day-nav">
+        <button class="icon-btn" id="prevDay" aria-label="Previous day">‹</button>
+        <div class="day-title">
+          <h1 id="dayLabel">Today</h1>
+          <p id="dateLabel" class="muted"></p>
+        </div>
+        <button class="icon-btn" id="nextDay" aria-label="Next day">›</button>
+      </div>
+
+      <div class="progress-card card">
+        <div class="ring" id="ring"><span id="ringText">0%</span></div>
+        <div>
+          <h2 id="progressTitle">Let's get started</h2>
+          <p class="muted" id="progressSub">Add a habit below to begin.</p>
+        </div>
+      </div>
+
+      <ul id="habitList" class="habit-list"></ul>
+
+      <form id="habitForm" class="card add-form">
+        <input id="habitEmoji" class="emoji-input" maxlength="2" value="💧" aria-label="Habit emoji">
+        <input id="habitName" placeholder="New habit, e.g. Drink 8 glasses of water" maxlength="60" required aria-label="Habit name">
+        <button type="submit" class="primary">Add</button>
+      </form>
+
+      <div class="card mood-card">
+        <h3>How was your day?</h3>
+        <div class="moods" id="moods">
+          <button data-mood="1" title="Awful">😞</button>
+          <button data-mood="2" title="Bad">😕</button>
+          <button data-mood="3" title="Okay">😐</button>
+          <button data-mood="4" title="Good">🙂</button>
+          <button data-mood="5" title="Great">😄</button>
+        </div>
+        <textarea id="note" rows="3" placeholder="One line about today…"></textarea>
+        <p class="muted small" id="savedHint">Saved automatically</p>
+      </div>
+    </section>
+
+    <!-- JOURNAL -->
+    <section id="view-journal" class="view">
+      <h1>Journal</h1>
+      <p class="muted">Every day you wrote a note or picked a mood.</p>
+      <div id="journalList" class="journal-list"></div>
+    </section>
+
+    <!-- STATS -->
+    <section id="view-stats" class="view">
+      <h1>Stats</h1>
+      <div class="stat-grid" id="statGrid"></div>
+      <div class="card">
+        <h3>Last 16 weeks</h3>
+        <div class="heatmap" id="heatmap"></div>
+        <div class="legend small muted">Less <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> More</div>
+      </div>
+      <div class="card">
+        <h3>Habits</h3>
+        <div id="habitStats"></div>
+      </div>
+      <div class="card data-card">
+        <h3>Your data</h3>
+        <p class="muted small">Everything is stored only in this browser. Export a backup to move it to another device.</p>
+        <div class="row">
+          <button id="exportBtn">⬇ Export</button>
+          <label class="button">⬆ Import<input type="file" id="importFile" accept="application/json" hidden></label>
+          <button id="resetBtn" class="danger">Reset all</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
